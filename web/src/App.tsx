@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Repo } from '../../api/src/models/Repo';
 
 export function App() {
@@ -20,6 +20,13 @@ export function App() {
   const sortedData = dataState.sort((a, b) =>
     b.created_at.localeCompare(a.created_at)
   );
+  const handleLangFilter = (e: SyntheticEvent) => {
+    const targetLang = e.currentTarget.innerHTML;
+    const filteredData = dataState.filter(
+      (item) => item.language === targetLang
+    );
+    setDataState(filteredData);
+  };
   return (
     <div className="App">
       <header className="App-headre">SO Exercise</header>
@@ -29,7 +36,9 @@ export function App() {
             <div key={item.id} className="repo">
               <div>Repo Name: {item.name}</div>
               <div>Description: {item.description}</div>
-              <button>{item.language}</button>
+              <button onClick={(e) => handleLangFilter(e)}>
+                {item.language}
+              </button>
               <div>Number of forks: {item.forks_count}</div>
               <div>Created at: {item.created_at}</div>
             </div>
