@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-
-import './App.css';
+import { useEffect, useState } from 'react';
 
 export function App() {
+  const [dataState, setDataState] = useState<any[]>([]);
+
+  const baseUrl = 'http://localhost:4000/repos';
+
+  const fetchData = async (url: string) => {
+    const rawData = await fetch(url);
+    const jsonData = await rawData.json();
+    setDataState(jsonData);
+  };
+
+  useEffect(() => {
+    fetchData(baseUrl);
+  }, []);
+  console.log(dataState);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-headre">SO Exercise</header>
+      <div>
+        {dataState.map((item) => {
+          return (
+            <div key={item.id} className="repo">
+              <div>Repo Name: {item.name}</div>
+              <div>Description: {item.description}</div>
+              <button>{item.language}</button>
+              <div>Number of forks: {item.forks}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
