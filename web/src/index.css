@@ -15,3 +15,7 @@ code {
 .repo {
   margin: 2rem 3rem;
 }
+
+.repo-info {
+  cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { Repo } from '../../api/src/models/Repo';
+import { RepoDEtails } from './components/RepoDetails';
 
 export function App() {
   const [dataState, setDataState] = useState<Repo[]>([]);
@@ -15,7 +16,6 @@ export function App() {
   useEffect(() => {
     fetchData(baseUrl);
   }, []);
-  console.log(dataState);
 
   const sortedData = dataState.sort((a, b) =>
     b.created_at.localeCompare(a.created_at)
@@ -34,13 +34,10 @@ export function App() {
         {sortedData.map((item) => {
           return (
             <div key={item.id} className="repo">
-              <div>Repo Name: {item.name}</div>
-              <div>Description: {item.description}</div>
+              <RepoDEtails item={item} />
               <button onClick={(e) => handleLangFilter(e)}>
                 {item.language}
               </button>
-              <div>Number of forks: {item.forks_count}</div>
-              <div>Created at: {item.created_at}</div>
             </div>
           );
         })}
