@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { readFile } from 'fs/promises';
+import { Repo } from "../models/Repo";
 
 export const repos = Router();
 
@@ -9,7 +10,7 @@ repos.get('/', async (_: Request, res: Response) => {
   res.status(200);
 
   // TODO: See README.md Task (A). Return repo data here. You’ve got this!
-  let mergedData: any[] = [];
+  let mergedData: Repo[] = [];
   const apiUrl: string = 'https://api.github.com/users/silverorange/repos';
   const filePath: string = `${__dirname}/../../data/repos.json`;
 

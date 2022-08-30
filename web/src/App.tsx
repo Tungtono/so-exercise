@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Repo } from '../../api/src/models/Repo';
 
 export function App() {
-  const [dataState, setDataState] = useState<any[]>([]);
+  const [dataState, setDataState] = useState<Repo[]>([]);
 
   const baseUrl = 'http://localhost:4000/repos';
 
@@ -26,7 +27,7 @@ export function App() {
               <div>Repo Name: {item.name}</div>
               <div>Description: {item.description}</div>
               <button>{item.language}</button>
-              <div>Number of forks: {item.forks}</div>
+              <div>Number of forks: {item.forks_count}</div>
             </div>
           );
         })}
